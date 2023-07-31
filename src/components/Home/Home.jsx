@@ -33,7 +33,10 @@ function App() {
       </div>
 
       <div className="px-20">
-        <h1 className="text-center my-4 text-3xl">Explore</h1>
+<div className="flex flex-col items-center">
+<h1 className="text-center mt-12 mb-4 text-4xl font-bold">Explore</h1>
+        <div className="bg-red-900 h-1 w-24"></div>
+</div>
         <div className="content-main">
           <div class="card-grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
             {cards.length > 0 ? (
