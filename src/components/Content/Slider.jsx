@@ -36,7 +36,7 @@ const AutoCarousel = () => {
     dots: false,
     infinite: true,
     speed: 100,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true, // We handle the auto-slide manually
     initialSlide: currentSlide, // Start with the currentSlide state
@@ -46,34 +46,32 @@ const AutoCarousel = () => {
     <section className="px-16 ">
       <Slider {...settings} className="flex ffff">
         {data.map((item, key) => (
-          <div>
-            <div className="bg-white rounded-xl flex items-center content-center bg-opacity-20 mx-4 ">
-              <a href={`/posts/${item.slug}`} key={key}>
+          <a href={item.url} target="_blank">
+            <div className="bg-white rounded-xl flex items-center content-center bg-opacity-10 mx-4 ">
+              <a href={item.url} key={key}>
                 <div className="flex justify-left content-center items-center max-w-1/2 gap-3 p-6">
                   <img
-                    className="w-12 h-12 rounded-lg"
+                    className="w-6 h-6 rounded-lg"
                     src={`https://www.google.com/s2/favicons?domain=${item.url}`}
                     alt={item.name}
                   />
-                  <div>
-                    <h1
-                      className="text-yellow-100 opacity-90 h-8  overflow-hidden"
-                      style={{
-                        fontWeight: "bold",
-                        fontSize: 25,
-                        marginBottom: 3,
-                      }}
-                    >
-                      {item.name}
-                    </h1>
-                    <p className={"text-sm 2xl:text-base"}>
-                      {item.description}
-                    </p>
-                  </div>
+                  <h1
+                    className="text-white opacity-90 overflow-hidden whitespace-nowrap mb-0"
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 20,
+                      marginBottom: 3,
+                    }}
+                  >
+                    {item.name}
+                  </h1>
                 </div>
+                {/* <p className="text-sm 2xl:text-base text-center text-gray-300">
+                  {item.description.substring(0, 30)}
+                </p> */}
               </a>
             </div>
-          </div>
+          </a>
         ))}
       </Slider>
     </section>

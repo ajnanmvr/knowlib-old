@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../Header/Header";
 import Card from "../Content/Card";
 import Slider from "../Content/Slider";
 import Axios from "../../Axios";
@@ -19,9 +18,9 @@ function App() {
   }, []);
   return (
     <div className="">
-      <div className="min-h-[400px] bg-blue-900 w-full pt-8 flex flex-col justify-center gap-5">
+      <div className="min-h-[400px] bg-blue-900 bg-[url(https://cdn.dribbble.com/users/1770290/screenshots/6142201/bg_73.gif)]  bg-cover w-full pt-8 flex flex-col justify-center gap-5">
         <div className="flex flex-col justify-center gap-3  px-24">
-          <h1 className="text-white font-bold text-6xl">Know Library</h1>
+          <h1 className="text-white font-bold text-7xl">Know Library</h1>
           <p className="text-white">
             Explore an extensive directory of essential websites, catering to
             academics, educators, and tech aficionados alike. <br />
@@ -29,14 +28,14 @@ function App() {
             advancement
           </p>
         </div>
-        <hr className="mx-24 my-2"/>
-        <Slider/>
+        <hr className="mx-24 my-2" />
+        <Slider />
       </div>
 
       <div className="px-20">
-      <h1 className="text-center">Wxplore</h1>
+        <h1 className="text-center my-4 text-3xl">Explore</h1>
         <div className="content-main">
-        <div class="card-grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div class="card-grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
             {cards.length > 0 ? (
               cards.map((card) => <Card key={card._id} card={card} />)
             ) : (

@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from "react";
 
 const Card = ({ card }) => {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
   const getFavicon = () => {
     if (card.image) {
       return card.image;
@@ -10,18 +15,34 @@ const Card = ({ card }) => {
   };
 
   return (
-    <article className="card bg-white shadow-md rounded-md">
+    <article className="card bg-white shadow-md rounded-md transition">
       <div className="card-header flex items-center justify-between p-4">
         <div className="flex items-center">
           <span
-            className="weblogo w-10 h-10 rounded-lg bg-contain bg-center"
-            style={{ backgroundImage: `url('${getFavicon()}')` }}
+            className="weblogo rounded-lg bg-contain bg-center"
+            style={{
+              backgroundImage: `url('${getFavicon()}')`,
+              backgroundSize: "25px",
+              backgroundRepeat: "no-repeat",
+            }}
           ></span>
           <h3 className="ml-4 font-medium">{card.name}</h3>
         </div>
       </div>
       <div className="card-body p-4">
-        <p>{card.description}</p>
+        <p>
+          {showFullDescription
+            ? card.description
+            : card.description.substring(0, 100)}
+          {card.description.length > 100 && (
+            <span
+              className="ml-2 text-blue-950 cursor-pointer"
+              onClick={toggleDescription}
+            >
+              {showFullDescription ? "Read Less" : "Read More"}
+            </span>
+          )}
+        </p>
       </div>
       <div className="card-footer p-4 border-t border-gray-200">
         <a

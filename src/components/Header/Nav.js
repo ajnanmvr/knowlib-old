@@ -2,7 +2,7 @@ import React from 'react'
 
 function Nav() {
   return (
-    <nav className="header-navigation-links">
+    <nav style={{opacity:0}} className="header-navigation-links">
     <a href="#"> Home </a>
     <a href="#"> Dashboard </a>
     <a href="#"> Projects </a>

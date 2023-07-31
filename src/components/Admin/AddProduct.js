@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "../../Axios";
 
-const FormComponent = () => {
+const FormComponent = ({ apiUrl }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -18,11 +20,12 @@ const FormComponent = () => {
       image,
       description,
       url,
+      category,
     };
 
     try {
       // Send a POST request to your Express.js backend using Axios
-      const response = await Axios.post("/data", data);
+      const response = await Axios.post(apiUrl, data);
       console.log(response.data);
 
       // Reset form fields
@@ -35,7 +38,7 @@ const FormComponent = () => {
       setSuccessMessage("Post completed successfully.");
       setErrorMessage(""); // Clear any previous error message
     } catch (error) {
-      console.error(error);
+      console.error(error.response);
       // Display error message
       setErrorMessage("An error occurred. Please try again.");
       setSuccessMessage(""); // Clear any previous success message
@@ -59,14 +62,28 @@ const FormComponent = () => {
         break;
       case "url":
         setUrl(value);
+      case "categogry":
+        setCategory(value);
         break;
       default:
         break;
     }
   };
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        // Make a GET request to the backend API endpoint to fetch categories
+        const response = await Axios.get("/category");
+        setCategories(response.data); // Set the fetched categories to the state
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+    fetchCategories();
+  }, []);
   return (
-    <div className="addItem">
+    <div className="">
       <h1 className="form-header-addproduct">Add New Website</h1>
       <form className="form-container" onSubmit={handleSubmit}>
         <label>
@@ -77,7 +94,7 @@ const FormComponent = () => {
             value={url}
             onChange={handleInputChange}
             placeholder="Enter URL"
-            />
+          />
         </label>
         <br />
         <label>
@@ -100,24 +117,28 @@ const FormComponent = () => {
             value={description}
             onChange={handleInputChange}
             placeholder="Enter description"
-            />
+          />
         </label>
-        <br />
-        <label>
-          Image URL <i style={{ fontSize: "10px", color: "red" }}>(Optional)</i>{" "}
-          :
-          <input
-            type="url"
-            name="image"
-            value={image}
-            onChange={handleInputChange}
-            placeholder="Enter image URL (Optional"
-            />
-        </label>
+        <div className="mb-4">
+          <label className="block font-bold text-gray-700">Category:</label>
+          <select
+            className="border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:border-blue-300"
+            name="category"
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option hidden>select category</option>
+            {categories.map((item, key) => (
+              <option key={key} value={item._id}>
+                {item.name}
+              </option>
+            ))}
+            {/* Add more options as needed */}
+          </select>
+        </div>
         <br />
         <button type="submit">Submit</button>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
     </div>
   );
