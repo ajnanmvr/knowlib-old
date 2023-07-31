@@ -19,9 +19,8 @@ function App() {
   }, []);
   return (
     <div className="">
-      <Header />
-      <div className="h-96 p-24 bg-blue-900 w-full ">
-        <div className="flex flex-col justify-center gap-3">
+      <div className="min-h-[400px] bg-blue-900 w-full pt-8 flex flex-col justify-center gap-5">
+        <div className="flex flex-col justify-center gap-3  px-24">
           <h1 className="text-white font-bold text-6xl">Know Library</h1>
           <p className="text-white">
             Explore an extensive directory of essential websites, catering to
@@ -29,13 +28,15 @@ function App() {
             Unlock boundless knowledge and empower your quest for learning and
             advancement
           </p>
-        <Slider />
         </div>
+        <hr className="mx-24 my-2"/>
+        <Slider/>
       </div>
 
-      <div className="content">
+      <div className="px-20">
+      <h1 className="text-center">Wxplore</h1>
         <div className="content-main">
-          <div className="card-grid">
+        <div class="card-grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
             {cards.length > 0 ? (
               cards.map((card) => <Card key={card._id} card={card} />)
             ) : (

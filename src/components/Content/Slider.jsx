@@ -36,31 +36,31 @@ const AutoCarousel = () => {
     dots: false,
     infinite: true,
     speed: 100,
-    slidesToShow: 2,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true, // We handle the auto-slide manually
     initialSlide: currentSlide, // Start with the currentSlide state
   };
 
   return (
-    <section className="">
+    <section className="px-16 ">
       <Slider {...settings} className="flex ffff">
         {data.map((item, key) => (
           <div>
-            <div className="bg-white rounded-xl h-32 flex items-center content-center bg-opacity-20">
+            <div className="bg-white rounded-xl flex items-center content-center bg-opacity-20 mx-4 ">
               <a href={`/posts/${item.slug}`} key={key}>
-                <div className="flex justify-left content-center items-center max-w-1/2 gap-3 p-8">
+                <div className="flex justify-left content-center items-center max-w-1/2 gap-3 p-6">
                   <img
-                    className="w-16 h-16"
+                    className="w-12 h-12 rounded-lg"
                     src={`https://www.google.com/s2/favicons?domain=${item.url}`}
                     alt={item.name}
                   />
                   <div>
                     <h1
-                      className="text-yellow-100 opacity-90"
+                      className="text-yellow-100 opacity-90 h-8  overflow-hidden"
                       style={{
                         fontWeight: "bold",
-                        fontSize: 30,
+                        fontSize: 25,
                         marginBottom: 3,
                       }}
                     >
