@@ -8,7 +8,7 @@ function Footer() {
       <a
         className="text-blue-900 font-semibold"
         target={"_blank"}
-        href="https://digitio-stack-portfolio-hd3wbcla3-janishnehyan03.vercel.app/"
+        href="https://digitiostack.co.in/"
       >
         Digitio Stack
       </a>
