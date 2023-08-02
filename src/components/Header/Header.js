@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 function Header() {
   const { user } = useContext(UserContext);
-  console.log(user);
   return (
     <header className="header bg-white top-0 w-full z-50">
       <div className="header-content responsive-wrapper">
@@ -29,9 +28,9 @@ function Header() {
             <a href="#" className="button flex items-center">
               <i className="ph-lightning-bold" />
               {user?.role === "admin" ? (
-                <Link className="ml-1" to={`/admin/dashboard`}>Admin</Link>
+                <Link className="ml-1" to={`/admin/dashboard`}>Admin Dashboard</Link>
               ) : (
-                <span className="ml-1">Admin Login</span>
+                <Link to={`/admin/login`} className="ml-1">Admin Login</Link>
               )}
             </a>
 
