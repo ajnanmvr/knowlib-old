@@ -3,34 +3,36 @@ import Axios from "../../Axios";
 
 const FormComponent = ({ apiUrl }) => {
   const [name, setName] = useState("");
-  const [image, setImage] = useState("");
+  const [thumbnail, setThumbnail] = useState(null); // Updated state to handle the thumbnail file
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      name,
-      image,
-      description,
-      url,
-      category,
-    };
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("thumbnail", thumbnail); // Append the thumbnail file to the form data
+    formData.append("description", description);
+    formData.append("url", url);
+    formData.append("category", category);
 
     try {
       // Send a POST request to your Express.js backend using Axios
-      const response = await Axios.post(apiUrl, data);
-      console.log(response.data);
-
+      const response = await Axios.post(apiUrl, formData, {
+        headers: { "Content-Type": "multipart/form-data" }, // Important to set the correct Content-Type
+      });
+      setLoading(false);
       // Reset form fields
       setName("");
-      setImage("");
+      setThumbnail(null);
       setDescription("");
       setUrl("");
 
@@ -38,6 +40,7 @@ const FormComponent = ({ apiUrl }) => {
       setSuccessMessage("Post completed successfully.");
       setErrorMessage(""); // Clear any previous error message
     } catch (error) {
+      setLoading(false);
       console.error(error.response);
       // Display error message
       setErrorMessage("An error occurred. Please try again.");
@@ -54,21 +57,26 @@ const FormComponent = ({ apiUrl }) => {
       case "name":
         setName(value);
         break;
-      case "image":
-        setImage(value);
-        break;
       case "description":
         setDescription(value);
         break;
       case "url":
         setUrl(value);
-      case "categogry":
+        break;
+      case "category":
         setCategory(value);
         break;
       default:
         break;
     }
   };
+
+  // Handle file input change for the thumbnail
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    setThumbnail(file);
+  };
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -82,9 +90,10 @@ const FormComponent = ({ apiUrl }) => {
 
     fetchCategories();
   }, []);
+
   return (
     <div className="">
-      <h1 className="form-header-addproduct">Add New Website</h1>
+      <h1 className="form-header-addproduct mb-90">Add New Website</h1>
       <form className="form-container" onSubmit={handleSubmit}>
         <label>
           Website Link:
@@ -136,7 +145,23 @@ const FormComponent = ({ apiUrl }) => {
           </select>
         </div>
         <br />
-        <button type="submit">Submit</button>
+
+        {/* Input field for the thumbnail file */}
+        <label>
+          Thumbnail:
+          <input
+            type="file"
+            name="thumbnail"
+            onChange={handleFileInputChange}
+          />
+        </label>
+        <br />
+
+        {loading ? (
+          <div className="" >processing...</div>
+        ) : (
+          <button type="submit">Submit</button>
+        )}
         {successMessage && <p className="success-message">{successMessage}</p>}
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>

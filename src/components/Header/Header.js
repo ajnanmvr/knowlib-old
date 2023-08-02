@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Nav from "./Nav";
 import { UserContext } from "../../contexts/UserContext";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { user } = useContext(UserContext);
@@ -26,29 +27,24 @@ function Header() {
           <div className="header-navigation-actions">
             <a href="#" className="button flex items-center">
               <i className="ph-lightning-bold" />
-              <span className="ml-1">Contact Admin</span>
+              {user?.role === "admin" ? (
+                <Link className="ml-1" to={`/admin/dashboard`}>Admin Dashboard</Link>
+              ) : (
+                <Link to={`/admin/login`} className="ml-1">Admin Login</Link>
+              )}
             </a>
-            <a href="#" className="icon-button">
-              <i className="ph-gear-bold" />
+
+            <a
+              href="http://dhiu.in/"
+              target="_blank"
+              title="Darul Huda Official Website"
+              className="avatar"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/ml/f/f3/Dhiu_logo.jpg"
+                alt="Avatar"
+              />
             </a>
-            <a href="#" className="icon-button">
-              <i className="ph-bell-bold" />
-            </a>
-            {user ? (
-              <p className="text-black font-bold capitalize">Hi, {user.username}</p>
-            ) : (
-              <a
-                href="http://dhiu.in/"
-                target="_blank"
-                title="Darul Huda Official Website"
-                className="avatar"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/ml/f/f3/Dhiu_logo.jpg"
-                  alt="Avatar"
-                />
-              </a>
-            )}
           </div>
         </div>
         <a href="#" className="button flex items-center">

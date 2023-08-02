@@ -15,7 +15,14 @@ const Card = ({ card }) => {
   };
 
   return (
-    <article className="card bg-white shadow-md rounded-md transition">
+    <article className="card  bg-white shadow-md rounded-md transition">
+      {card.thumbnail && (
+        <img
+          src={card.thumbnail}
+          alt="Thumbnail"
+          className="w-full h-40 rounded-t-md object-cover"
+        />
+      )}
       <div className="card-header flex items-center justify-between p-4">
         <div className="flex items-center">
           <span

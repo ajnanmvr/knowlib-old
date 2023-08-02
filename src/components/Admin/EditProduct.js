@@ -14,7 +14,7 @@ const EditFormComponent = ({ dataToEdit }) => {
   const [categories, setCategories] = useState([]);
 
   // Fetch data from backend using the provided 'id'
-  useEffect(() => {
+useEffect(() => {
     const fetchCategories = async () => {
       try {
         // Make a GET request to the backend API endpoint to fetch categories

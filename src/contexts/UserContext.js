@@ -19,7 +19,6 @@ const UserProvider = ({ children }) => {
         },
       })
         .then((response) => {
-          console.log(response.data);
           setUser(response.data);
           return response.data; // Assuming the API returns user data in the response
         })
