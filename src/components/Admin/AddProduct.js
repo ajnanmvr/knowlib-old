@@ -10,11 +10,13 @@ const FormComponent = ({ apiUrl }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", name);
     formData.append("thumbnail", thumbnail); // Append the thumbnail file to the form data
@@ -27,8 +29,7 @@ const FormComponent = ({ apiUrl }) => {
       const response = await Axios.post(apiUrl, formData, {
         headers: { "Content-Type": "multipart/form-data" }, // Important to set the correct Content-Type
       });
-      console.log(response.data);
-
+      setLoading(false);
       // Reset form fields
       setName("");
       setThumbnail(null);
@@ -39,6 +40,7 @@ const FormComponent = ({ apiUrl }) => {
       setSuccessMessage("Post completed successfully.");
       setErrorMessage(""); // Clear any previous error message
     } catch (error) {
+      setLoading(false);
       console.error(error.response);
       // Display error message
       setErrorMessage("An error occurred. Please try again.");
@@ -91,7 +93,7 @@ const FormComponent = ({ apiUrl }) => {
 
   return (
     <div className="">
-      <h1 className="form-header-addproduct">Add New Website</h1>
+      <h1 className="form-header-addproduct mb-90">Add New Website</h1>
       <form className="form-container" onSubmit={handleSubmit}>
         <label>
           Website Link:
@@ -155,7 +157,11 @@ const FormComponent = ({ apiUrl }) => {
         </label>
         <br />
 
-        <button type="submit">Submit</button>
+        {loading ? (
+          <div className="" >processing...</div>
+        ) : (
+          <button type="submit">Submit</button>
+        )}
         {successMessage && <p className="success-message">{successMessage}</p>}
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
