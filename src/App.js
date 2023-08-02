@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AdminLogin from "./components/Admin/AdminLogin";
 import AdminTable from "./components/Admin/Table";
 import Home from "./components/Home/Home";
+import Redirect from "./components/Home/Redirect";
 import List from "./components/List/List";
 import AddProduct from "./components/Admin/AddProduct";
 import EditProduct from "./components/Admin/EditProduct";
@@ -23,7 +24,8 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Redirect />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/list" element={<List />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route

@@ -10,7 +10,7 @@ function Header() {
       <div className="header-content responsive-wrapper">
         <div className="header-logo">
           <a
-            href="/"
+            href="/home"
             className="text-black font-semibold text-lg flex items-center"
           >
             <div>
