@@ -8,7 +8,7 @@ const UserContext = createContext();
 // Create a provider for the UserContext
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
+console.log(user);
   // Add any other user-related state and functions here if needed
   const getUserDataFromLocalStorage = () => {
     const token = localStorage.getItem("token");
@@ -32,9 +32,9 @@ const UserProvider = ({ children }) => {
   };
 
   // Call the getUserDataFromLocalStorage when the component mounts
-  // useEffect(() => {
-  //   getUserDataFromLocalStorage();
-  // }, []);
+  useEffect(() => {
+    getUserDataFromLocalStorage();
+  }, []);
   return (
     <UserContext.Provider
       value={{ user, setUser, getUserDataFromLocalStorage }}
