@@ -27,7 +27,7 @@ const UserProvider = ({ children }) => {
           console.error("Error fetching user data:", error.response);
         });
     } else {
-      window.location.href = "/";
+      // window.location.href = "/";
     }
   };
 
